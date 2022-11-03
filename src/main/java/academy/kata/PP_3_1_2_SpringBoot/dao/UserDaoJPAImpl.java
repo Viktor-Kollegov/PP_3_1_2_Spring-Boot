@@ -12,6 +12,7 @@ import java.util.List;
 public class UserDaoJPAImpl implements UserDao {
     @PersistenceContext // без данной аннотации энтити менеджер подтянется один раз, но после исчезнет
     private final EntityManager entityManager;
+    //Эту анотацию всё-таки на поле или на конструктор ниже?
 
     public UserDaoJPAImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
