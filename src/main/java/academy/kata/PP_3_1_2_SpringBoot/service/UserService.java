@@ -2,8 +2,8 @@ package academy.kata.PP_3_1_2_SpringBoot.service;
 
 import academy.kata.PP_3_1_2_SpringBoot.model.User;
 
-import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
@@ -13,10 +13,10 @@ public interface UserService {
 
     void updateUser(User updatedUser);
 
-    User findUserById(int id);
+    Optional<User> findUserById(Long id);
 
-    List<User> getAllUsers() throws SQLException;
+    List<User> getAllUsers();
 
-    void cleanUsersTable() throws SQLException;
+    void cleanUsersTable();
 
 }

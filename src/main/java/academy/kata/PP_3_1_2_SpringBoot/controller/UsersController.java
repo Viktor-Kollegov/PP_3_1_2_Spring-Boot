@@ -7,9 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLException;
-
-
 @Controller
 @RequestMapping(value = "/users")
 public class UsersController {
@@ -20,7 +17,7 @@ public class UsersController {
     }
 
     @GetMapping()
-    public String printWelcome(ModelMap modelMap) throws SQLException {
+    public String printWelcome(ModelMap modelMap) {
         modelMap.addAttribute("users", userService.getAllUsers());
         //Создаём атрибут users для работы с ним на странице users.html
         return "users";
@@ -40,8 +37,9 @@ public class UsersController {
     }
 
     @GetMapping("/edit/{id}")
-    public String editUserForm(@PathVariable int id, Model model) {
-        model.addAttribute("userToUpdate", userService.findUserById(id));
+    public String editUserForm(@PathVariable Long id, Model model) {
+        userService.findUserById(id).ifPresent(userToUpdate -> model
+                .addAttribute("userToUpdate", userToUpdate));
         //С заданным атрибутом работаем на странице edit_users.html
         return "edit_users";
     }
@@ -65,7 +63,7 @@ public class UsersController {
     }
 
     @GetMapping("/clear")
-    public String ClearTheTable() throws SQLException {
+    public String ClearTheTable() {
         userService.cleanUsersTable();
         return "redirect:/users";
     }
